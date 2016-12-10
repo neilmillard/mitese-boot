@@ -7,6 +7,7 @@ parse_args "$@"
 install_yum_deps
 install_ruby
 install_gem_deps
+setup_aws_s3
 inject_ssh_key
 clone_git_repo
 symlink_puppet_dir
@@ -23,6 +24,7 @@ usagemessage="Error, USAGE: $(basename "${0}") \n \
   --reponame|-n \n \
   [--repoprivkeyfile|-k] \n \
   [--repobranch|-b] \n \
+  [--configbucket] \n \
   [--help|-h] \n \
   [--version|-v]"
 
@@ -83,6 +85,10 @@ parse_args() {
         ;;
       --repobranch|-b)
         set_facter init_repobranch "${2}"
+        shift
+        ;;
+      --configbucket)
+        set_facter init_configbucket "${2}"
         shift
         ;;
       --debug)
@@ -193,6 +199,15 @@ install_gem_deps() {
   gem_install puppet hiera facter ruby-augeas hiera-eyaml ruby-shadow
 }
 
+setup_aws_s3() {
+if [[ -z "${FACTER_init_configbucket}" ]]; then
+  echo "Config Bucket not configured. S3 config skipped"
+else
+  AWSCMDCFG="/root/.aws/credentials"
+  mkdir /root/.aws
+  wget --output-document=/root/.aws/config ${FACTER_init_configbucket}/config
+fi
+}
 # Inject the SSH key to allow git cloning
 inject_ssh_key() {
   # Set Git login params
