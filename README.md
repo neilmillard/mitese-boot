@@ -16,6 +16,8 @@ init_role=webserver
 init_env=dev
 init_repouser=mitese
 init_reponame=server-provisioning
+init_repobranch=master
+
 exec 1>/var/log/boot.log 2>&1
 set -x
 
