@@ -26,6 +26,6 @@ yum -y install git
 
 cd /opt/
 git clone https://github.com/neilmillard/mitese-boot.git
-chmod +x /opt/provision.sh
+chmod a+x /opt/provision.sh
 ./provision.sh --role ${init_role} --environment ${init_env} --repouser ${init_repouser} --reponame ${init_reponame} --repobranch ${init_repobranch}
 ```
