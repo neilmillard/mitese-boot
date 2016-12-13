@@ -196,7 +196,7 @@ install_ruby() {
 # Install the gem dependencies
 install_gem_deps() {
   echo "Installing puppet and related gems"
-  gem_install puppet hiera facter ruby-augeas hiera-eyaml ruby-shadow
+  gem_install puppet hiera facter ruby-augeas hiera-eyaml ruby-shadow io-console
 }
 
 setup_aws_s3() {
