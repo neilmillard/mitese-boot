@@ -12,9 +12,9 @@ example
 
 ```
 #!/bin/sh
-init_role=webserver
+init_role=jenkins
 init_env=dev
-init_repouser=mitese
+init_repouser=neilmillard
 init_reponame=server-provisioning
 init_repobranch=master
 init_configbucket=https://s3-eu-west-1.amazonaws.com/config.example.com
@@ -22,7 +22,6 @@ init_configbucket=https://s3-eu-west-1.amazonaws.com/config.example.com
 exec 1>/var/log/boot.log 2>&1
 set -x
 
-yum -y update
 yum -y install git
 
 cd /opt/
