@@ -196,7 +196,7 @@ install_ruby() {
 # Install the gem dependencies
 install_gem_deps() {
   echo "Installing puppet and related gems"
-  gem_install puppet hiera facter ruby-augeas hiera-eyaml ruby-shadow io-console
+  gem_install puppet:4.10.4 hiera facter ruby-augeas hiera-eyaml ruby-shadow io-console
 }
 
 setup_aws_s3() {
@@ -285,7 +285,7 @@ symlink_puppet_dir() {
   fi
 
   # if puppet ver = 4, link to modules
-  if [[ "${PUPPETVER}" == "4" ]]; then
+  if [[ "${PUPPETVER}" == "4" || "${PUPPETVER}" == "5" ]]; then
     local codedir="/etc/puppetlabs/code"
     if [ -e ${codedir} ]; then
       RESULT=$(rm -rf ${codedir});
