@@ -1,30 +1,33 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-# All Vagrant configuration is done below. The "2" in Vagrant.configure
-# configures the configuration version (we support older styles for
-# backwards compatibility). Please don't change it unless you know what
-# you're doing.
 Vagrant.configure("2") do |config|
   # The most common configuration options are documented and commented below.
   # For a complete reference, please see the online documentation at
   # https://docs.vagrantup.com.
 
+  # Config for the role etc
+  # This config will give a jenkins server listening on http://localhost:8080/
+  $init_repobranch = 'master'
+  $init_repouser = 'neilmillard'
+  $init_reponame = 'server-provisioning'
+  $init_role = 'jenkins'
+
+  $webport = '8080'
+  $hostport = '8080'
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
   # we use centos official
   # https://atlas.hashicorp.com/centos/boxes/7
   config.vm.box = "centos/7"
 
-  # Disable automatic box update checking. If you disable this, then
-  # boxes will only be checked for updates when the user runs
-  # `vagrant box outdated`. This is not recommended.
-  # config.vm.box_check_update = false
-
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
   # config.vm.network "forwarded_port", guest: 80, host: 8080
+
+  #Port for the webserver
+  config.vm.network "forwarded_port", guest: $webport, host: $hostport
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
@@ -45,11 +48,6 @@ Vagrant.configure("2") do |config|
   if Vagrant::Util::Platform.windows? then
     config.vm.synced_folder ".", "/vagrant", disabled: true
   end
-
-  $init_repobranch = 'master'
-  $init_repouser = 'neilmillard'
-  $init_reponame = 'server-provisioning'
-  $init_role = 'jenkins'
 
   if ENV['init_env']
     $init_env = ENV['init_env']
