@@ -46,10 +46,10 @@ Vagrant.configure("2") do |config|
     config.vm.synced_folder ".", "/vagrant", disabled: true
   end
 
-  init_repobranch=master
-  init_repouser=neilmillard
-  init_reponame=server-provisioning
-  init_role=jenkins
+  init_repobranch = 'master'
+  init_repouser = 'neilmillard'
+  init_reponame = 'server-provisioning'
+  init_role = 'jenkins'
 
   if ENV['init_env']
     $init_env = ENV['init_env']
